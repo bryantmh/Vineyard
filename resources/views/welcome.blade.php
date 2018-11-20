@@ -7,6 +7,9 @@
             Vineyard Laravel
         </div>
         <div style="color: black;">Welcome to your project skeleton!</div>
+
+
+        {!! form($form) !!}
     </div>
 
 @endsection
