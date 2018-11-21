@@ -11,6 +11,8 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\Field;
 
+use App\Post;
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -20,7 +22,9 @@ class Controller extends BaseController
 		    'method' => 'POST',
 		    'url' => route('storePost')
 		]);
-    	return view('welcome', compact('form'));
+		$posts = Post::all();
+
+    	return view('welcome', compact('form', 'posts'));
     }
 
     public function storePost(FormBuilder $formBuilder) {
@@ -29,8 +33,12 @@ class Controller extends BaseController
 		if (!$form->isValid()) {
 		    return redirect()->back()->withErrors($form->getErrors())->withInput();
 		}
-    } 
+		$form->redirectIfNotValid();
 
+        Post::create($form->getFieldValues());
+
+        index();
+    }
 
 }
 
@@ -44,6 +52,7 @@ class CreatePost extends Form
             ])
             ->add('filepath', 'text', [
                 'rules' => 'max:255|required'
-            ]);
+            ])
+            ->add('submit', 'submit', ['label' => 'Save form']);
     }
 }

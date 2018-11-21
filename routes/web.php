@@ -12,8 +12,4 @@
 */
 
 Route::get('/', 'Controller@index')->name('infiniteScroll');
-Route::get('/storePost', 'Controller@storePost')->name('storePost');
-	// function () {
-    // return view('welcome');
-
-// });
+Route::post('/storePost', 'Controller@storePost')->name('storePost');
