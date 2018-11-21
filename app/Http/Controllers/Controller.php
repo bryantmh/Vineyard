@@ -26,7 +26,7 @@ class Controller extends BaseController
 		    'method' => 'POST',
 		    'url' => route('storePost')
 		]);
-		$posts = Post::all();
+		$posts = Post::orderBy('created_at', 'desc')->paginate(8);
 
     	return view('welcome', compact('form', 'posts'));
     }
@@ -59,11 +59,16 @@ class CreatePost extends Form
     {
         $this
             ->add('description', 'textarea', [
-                'rules' => 'max:255'
+                'rules' => 'max:255',
+                'attr' => ['style' => "height: 6em;"]
             ])
             ->add('upload_Image', 'file', [
-                'rules' => 'required|max:2048|mimes:jpg,jpeg,png,gif'
+                'rules' => 'required|max:2048|mimes:jpg,jpeg,png,gif',
+                'attr' => ["class" => '.form-control-file']
             ])
-            ->add('submit', 'submit', ['label' => 'Save form']);
+            ->add('submit', 'submit', [
+            	'label' => 'Post',
+            	'attr' => ['class' => 'btn btn-primary', 'style' => 'width: 5em;']
+            ]);
     }
 }
