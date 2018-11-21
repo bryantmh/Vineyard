@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Kris\LaravelFormBuilder\FormBuilder;
 
@@ -12,6 +13,9 @@ use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\Field;
 
 use App\Post;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
@@ -27,7 +31,7 @@ class Controller extends BaseController
     	return view('welcome', compact('form', 'posts'));
     }
 
-    public function storePost(FormBuilder $formBuilder) {
+    public function storePost(Request $request, FormBuilder $formBuilder) {
         $form = $formBuilder->create(CreatePost::class);
 
 		if (!$form->isValid()) {
@@ -35,9 +39,16 @@ class Controller extends BaseController
 		}
 		$form->redirectIfNotValid();
 
-        Post::create($form->getFieldValues());
+		$values = $form->getFieldValues();
+		$filepath = $request->file('upload_Image')->store('public/memes');
+		$filepath = preg_replace('/^public\/memes\//', '', $filepath);
+        Post::create(['description' => $values['description'], 'filepath' => $filepath]);
 
-        index();
+        return redirect()->route('infiniteScroll');
+    }
+
+    private function storeFile() {
+
     }
 
 }
@@ -50,8 +61,8 @@ class CreatePost extends Form
             ->add('description', 'textarea', [
                 'rules' => 'max:255'
             ])
-            ->add('filepath', 'text', [
-                'rules' => 'max:255|required'
+            ->add('upload_Image', 'file', [
+                'rules' => 'required|max:2048|mimes:jpg,jpeg,png,gif'
             ])
             ->add('submit', 'submit', ['label' => 'Save form']);
     }
