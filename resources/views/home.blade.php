@@ -8,7 +8,7 @@
 			<h4>Join our growing community.</h4><br><br>
 			<a style="font-size: 2em;" class="btn btn-secondary" href="./feed" role="button">Enter the Vineyard</a>
 		</div>
-		<span style="align-self: flex-end; position: absolute; right: 5;"><img style="height: 70%;" src="{{asset('img/vine.png')}}"></span>
+		<span style="align-self: flex-end; position: absolute; right: 70;"><img style="height: 70%;" src="{{asset('img/vine.png')}}"></span>
 	</div>
 
 @endsection
