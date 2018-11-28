@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-	
+	<div class="page-content" id="main-content" role="main">
 	   <div class="card mx-auto" style="width: 40em;">
 			<div class="card-body">
     			<h2 class="card-title">Create a Post</h2>
@@ -21,5 +21,5 @@
 	        @endforeach
 	       	{{ $posts->links() }}
 	    </div>
-
+	</div>
 @endsection

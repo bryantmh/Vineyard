@@ -47,8 +47,8 @@ class Controller extends BaseController
         return redirect()->route('infiniteScroll');
     }
 
-    private function storeFile() {
-
+    public function home() {
+    	return view('home');
     }
 
 }
@@ -68,7 +68,7 @@ class CreatePost extends Form
             ])
             ->add('submit', 'submit', [
             	'label' => 'Post',
-            	'attr' => ['class' => 'btn btn-primary', 'style' => 'width: 5em;']
+            	'attr' => ['class' => 'btn btn-secondary', 'style' => 'width: 5em;']
             ]);
     }
 }

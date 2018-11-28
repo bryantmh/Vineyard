@@ -15,7 +15,7 @@
 	 		<header>
 				<nav class="bg-dark static-top">
 					<div>
-						<h1><i class="fab fa-pagelines"></i><a class="navbar-brand" href="#">Vineyard</a></h1>
+						<h1><i class="fab fa-pagelines"></i><a class="navbar-brand" href="/">Vineyard</a></h1>
 					</div>
 					{{-- <div class="navbar navbar-expand-md navbar-dark">
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navTabs" aria-controls="navTabs" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,9 +29,9 @@
 					</div> --}}
 				</nav>
 			</header>
-	 		<div class="page-content" id="main-content" role="main">
-      			@yield('content')
-      		</div>
+	 		
+      		@yield('content')
+
     	</div>
     </body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
