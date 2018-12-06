@@ -14,3 +14,4 @@
 Route::get('/feed', 'Controller@index')->name('infiniteScroll');
 Route::get('/', 'Controller@home')->name('welcome');
 Route::post('/storePost', 'Controller@storePost')->name('storePost');
+Route::post('/storeComment', 'Controller@storeComment')->name('storeComment');

@@ -11,11 +11,66 @@
         <div class="scroll">
 	 		@foreach ($posts as $post)
 
-		        <div class="card mx-auto" style="width: 40em;">
-				  	<div class="card-body">
+		        <div class="card mx-auto" style="width: 40em;margin-bottom: 1em;">
+				  	<div >
 					    <h2 class="card-title">{{ $post->description }}</h2>
 					    <img class="card-img-bottom" src="./storage/memes/{{ $post->filepath }}" >
 				  	</div>
+				  		<div class="card mx-auto" style="width: 30em;; padding: .5em;border-collapse: 'collapse'">
+				  			<div class="row">
+					  		<div class="col">
+					  			<button type="button" class="btn btn-info" id="leave-a-comment">
+					  				Leave A Comment!
+					  			</button>
+					  		</div>
+					  		<div class="col">
+					  			<button type="button" class="btn " id="listview" >
+					  				Hide Comments
+					  			</button>
+					  		</div>
+					  	</div>
+					  	</div>
+					  	<div id="comments-form" style="display: none;">
+				  		<div class="card mx-auto" style="width: 30em; margin-top: 1em; margin-bottom: 1em;">
+				  			<form method="POST" action="{{route('storeComment')}}" style="padding: 1em;">
+				  				
+				  				<div class="form-row">
+				  					<div class="col-7">
+						  				<label for="comment"></label>
+						  				<input type='text' class='form-control' name='comment' placeholder="Leave a comment!">
+					  				</div>
+					  				{{csrf_field()}}
+					  				<input type='text' name='post_id' hidden="true"
+					  				value="{{$post->id}}">
+					  			
+					  				<div class="col">
+						  				<input type='text' name='user_id' hidden="true"
+						  				value="28">
+						  				<button type="submit" class="btn btn-success" style="margin: .5em;">Comment</button>
+					  			</div>
+					  			</div>
+				  			</form>
+				  		</div> 
+				  	</div>
+				  		<div style="margin-bottom: 1em;" id="comments-list">
+			       		@foreach($comments as $comment)
+				       		@if($comment->post_id == $post->id)
+				       		<div class="card mx-auto" style="width: 30em;">
+				       			<div class="card-body">
+				       				<div>{{ $comment->comment }}</div>
+				       				<div>
+				       					@foreach($users as $user)
+				       					{{$user->name}}
+					       					@if($comment->user_id == $user->id)
+					       						{{$user->name}}
+					       					@endif
+				       					@endforeach
+				       				</div>
+				       			</div>
+				       		</div>
+				       		@endif
+			       		@endforeach
+			       	</div>
 				</div>
 
 	        @endforeach

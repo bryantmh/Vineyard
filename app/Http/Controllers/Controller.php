@@ -12,7 +12,9 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\Field;
 
+use App\Comment;
 use App\Post;
+use App\User;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -26,9 +28,16 @@ class Controller extends BaseController
 		    'method' => 'POST',
 		    'url' => route('storePost')
 		]);
-		$posts = Post::orderBy('created_at', 'desc')->paginate(8);
 
-    	return view('welcome', compact('form', 'posts'));
+        $formComment = $formBuilder->create(CreateComment::class, [
+            'method' => 'POST',
+            'url' => route('storeComment')
+        ]);
+		$posts = Post::orderBy('created_at', 'desc')->paginate(8);
+        $comments = Comment::orderBy('created_at', 'created_at')->paginate(5);
+        $users = User::orderBy('id');
+
+    	return view('welcome', compact('users','form', 'formComment', 'posts', 'comments'));
     }
 
     public function storePost(Request $request, FormBuilder $formBuilder) {
@@ -39,11 +48,23 @@ class Controller extends BaseController
 		}
 		$form->redirectIfNotValid();
 
-		$values = $form->getFieldValues();
+		$values = $form->getFieldValues(); 
 		$filepath = $request->file('upload_Image')->store('public/memes');
 		$filepath = preg_replace('/^public\/memes\//', '', $filepath);
         Post::create(['description' => $values['description'], 'filepath' => $filepath]);
 
+        return redirect()->route('infiniteScroll');
+    }
+
+    public function storeComment(Request $request){
+        
+        
+        $comment = $this->validate(request(),[
+            'comment' => 'required',
+            'post_id' => 'required|numeric',
+            'user_id' => 'required|numeric'
+        ]);
+        Comment::create($comment);
         return redirect()->route('infiniteScroll');
     }
 
@@ -69,6 +90,22 @@ class CreatePost extends Form
             ->add('submit', 'submit', [
             	'label' => 'Post',
             	'attr' => ['class' => 'btn btn-secondary', 'style' => 'width: 5em;']
+            ]);
+    }
+}
+
+class CreateComment extends Form
+{
+    public function buildForm(){
+        $this
+            ->add('comment', 'textarea', [
+                'rules' => 'max:255',
+                'attr' => ['style' => 'height: 3em;']
+            ])
+            ->add('post_id', 'hidden')
+            ->add('submit', 'submit', [
+                'label' => 'Post',
+                'attr' => ['class' => 'btn btn-secondary', 'style' => 'width: 2em;']
             ]);
     }
 }
