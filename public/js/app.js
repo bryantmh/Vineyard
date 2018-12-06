@@ -14,24 +14,26 @@ $(document).ready(function() {
             }
         });
     });
-    $('#listview').click(function(){
-        $('#comments-list').toggle(400, function () {
-            if($('#listview').text() == 'Hide Comments'){
-                $('#listview').text('Show Comments');
+    
+});
+function listviewfunc(id) {
+        
+        $('#comments-list'+id).toggle(400, function () {
+            if($('#listview'+id).text() == 'Hide Comments'){
+                $('#listview'+id).text('Show Comments');
             }
-            else if($('#listview').text() == 'Show Comments'){
-                $('#listview').text('Hide Comments');
+            else if($('#listview'+id).text() == 'Show Comments'){
+                $('#listview'+id).text('Hide Comments');
             }
         });
-    });
+    }
+    function formview(id) {
+            $('#comments-form'+id).toggle(400, function () {
+                if($('#leave-a-comment'+id).text() == 'Leave A Comment!'){
+                    $('#leave-a-comment'+id).text('Don\'t Leave A Comment');
+                }else if($('#leave-a-comment'+id).text() =='Don\'t Leave A Comment'){
+                    $('#leave-a-comment'+id).text('Leave A Comment!');
+                }
+            })
 
-    $('#leave-a-comment').click(function () {
-        $('#comments-form').toggle(400, function () {
-            if($('#leave-a-comment').text() == 'Leave A Comment!'){
-                $('#leave-a-comment').text('Don\'t Leave A Comment');
-            }else if($('#leave-a-comment').text() =='Don\'t Leave A Comment'){
-                $('#leave-a-comment').text('Leave A Comment!');
-            }
-        })
-    })
-});
+    }

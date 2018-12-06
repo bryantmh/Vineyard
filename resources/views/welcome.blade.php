@@ -19,18 +19,18 @@
 				  		<div class="card mx-auto" style="width: 30em;; padding: .5em;border-collapse: 'collapse'">
 				  			<div class="row">
 					  		<div class="col">
-					  			<button type="button" class="btn btn-info" id="leave-a-comment">
+					  			<button type="button" class="btn btn-secondary" id="leave-a-comment{{$post->id}}" onclick="formview({{$post->id}})">
 					  				Leave A Comment!
 					  			</button>
 					  		</div>
 					  		<div class="col">
-					  			<button type="button" class="btn " id="listview" >
+					  			<button type="button" class="btn " id="listview{{$post->id}}" onclick="listviewfunc({{$post->id}})">
 					  				Hide Comments
 					  			</button>
 					  		</div>
 					  	</div>
 					  	</div>
-					  	<div id="comments-form" style="display: none;">
+					  	<div id="comments-form{{$post->id}}" style="display: none;d ">
 				  		<div class="card mx-auto" style="width: 30em; margin-top: 1em; margin-bottom: 1em;">
 				  			<form method="POST" action="{{route('storeComment')}}" style="padding: 1em;">
 				  				
@@ -52,7 +52,7 @@
 				  			</form>
 				  		</div> 
 				  	</div>
-				  		<div style="margin-bottom: 1em;" id="comments-list">
+				  		<div style="margin-bottom: 1em;" id="comments-list{{$post->id}}">
 			       		@foreach($comments as $comment)
 				       		@if($comment->post_id == $post->id)
 				       		<div class="card mx-auto" style="width: 30em;">
