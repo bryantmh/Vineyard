@@ -19,6 +19,13 @@ html, body {
     background-color: #1E2F23!important;
 }
 
+.card-title {
+  padding-top: .5em;
+  padding-left: .5em;
+  padding-right: .5em;
+  padding-bottom: .1em;
+}
+
 
 .title {
     font-size: 84px;
