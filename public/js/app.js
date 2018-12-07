@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    $('#listview').text('Hide Comments');
-    $('#leave-a-comment').text('Leave A Comment!');
+    $('.hideCommentsBtn').text('Hide Comments');
+    $('.leaveAComment').text('Leave A Comment!');
 	$('.pagination').hide();
     $(function () {
         $('.scroll').jscroll({
@@ -37,3 +37,8 @@ function listviewfunc(id) {
             })
 
     }
+
+    $('.submit_class').click(function(e){
+        e.preventDefault();
+        return false;
+    });

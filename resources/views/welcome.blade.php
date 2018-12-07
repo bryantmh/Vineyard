@@ -11,10 +11,10 @@
         <div class="scroll">
 	 		@foreach ($posts as $post)
 
-		        <div class="card mx-auto" style="width: 40em;margin-bottom: 1em;">
+		        <div class="card mx-auto" style="width: 40em;margin-bottom: 1em;" >
 				  	<div >
 					    <h2 class="card-title">{{ $post->description }}</h2>
-					    <img class="card-img-bottom" src="./storage/memes/{{ $post->filepath }}" >
+					    <img class="card-img-bottom" src="./storage/memes/{{ $post->filepath }}" href="#{{$post->id}}">
 				  	</div>
 				  		<div class="card mx-auto" style="width: 30em;; padding: .5em;border-collapse: 'collapse'">
 				  			<div class="row">
@@ -24,7 +24,7 @@
 					  			</button>
 					  		</div>
 					  		<div class="col">
-					  			<button type="button" class="btn " id="listview{{$post->id}}" onclick="listviewfunc({{$post->id}})">
+					  			<button type="button" class="btn hideCommentsBtn" id="listview{{$post->id}}" onclick="listviewfunc({{$post->id}})">
 					  				Hide Comments
 					  			</button>
 					  		</div>
@@ -46,7 +46,8 @@
 					  				<div class="col">
 						  				<input type='text' name='user_id' hidden="true"
 						  				value="28">
-						  				<button type="submit" class="btn btn-success" style="margin: .5em;">Comment</button>
+						  				<button type="submit" class="btn btn-successsubmit_class" style="margin: .5em;"
+						  				>Comment</button>
 					  			</div>
 					  			</div>
 				  			</form>
