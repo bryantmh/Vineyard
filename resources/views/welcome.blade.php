@@ -19,41 +19,18 @@
 				  		<div class="card mx-auto" style="width: 30em;; padding: .5em;border-collapse: 'collapse'">
 				  			<div class="row">
 					  		<div class="col">
-					  			<button type="button" class="btn btn-secondary" id="leave-a-comment{{$post->id}}" onclick="formview({{$post->id}})">
-					  				Leave A Comment!
+					  			<button type="button" class="btn btn-secondary leaveAComment" id="leave-a-comment{{$post->id}}" onclick="formview({{$post->id}})" value="Leave A Comment!">
 					  			</button>
 					  		</div>
 					  		<div class="col">
-					  			<button type="button" class="btn hideCommentsBtn" id="listview{{$post->id}}" onclick="listviewfunc({{$post->id}})">
-					  				Hide Comments
+					  			<button type="button" class="btn hideCommentsBtn" id="listview{{$post->id}}" onclick="listviewfunc({{$post->id}})" value="Hide Comments">
 					  			</button>
 					  		</div>
 					  	</div>
 					  	</div>
-					  	<div id="comments-form{{$post->id}}" style="display: none;d ">
-				  		<div class="card mx-auto" style="width: 30em; margin-top: 1em; margin-bottom: 1em;">
-				  			<form method="POST" action="{{route('storeComment')}}" style="padding: 1em;">
-				  				
-				  				<div class="form-row">
-				  					<div class="col-7">
-						  				<label for="comment"></label>
-						  				<input type='text' class='form-control' name='comment' placeholder="Leave a comment!">
-					  				</div>
-					  				{{csrf_field()}}
-					  				<input type='text' name='post_id' hidden="true"
-					  				value="{{$post->id}}">
-					  			
-					  				<div class="col">
-						  				<input type='text' name='user_id' hidden="true"
-						  				value="28">
-						  				<button type="submit" class="btn btn-successsubmit_class" style="margin: .5em;"
-						  				>Comment</button>
-					  			</div>
-					  			</div>
-				  			</form>
-				  		</div> 
+					  	<div id="comments-form{{$post->id}}" style="display: none; ">
 				  	</div>
-				  		<div style="margin-bottom: 1em;" id="comments-list{{$post->id}}">
+				  		<div style="margin-bottom: 1em;" id="comments-list{{$post->id}}" class="scroll">
 			       		@foreach($comments as $comment)
 				       		@if($comment->post_id == $post->id)
 				       		<div class="card mx-auto" style="width: 30em;">

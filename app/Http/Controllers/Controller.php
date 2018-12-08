@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Kris\LaravelFormBuilder\FormBuilder;
-
+use Log;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\Field;
-
 use App\Comment;
 use App\Post;
 use App\User;
@@ -34,7 +32,7 @@ class Controller extends BaseController
             'url' => route('storeComment')
         ]);
 		$posts = Post::orderBy('created_at', 'desc')->paginate(8);
-        $comments = Comment::orderBy('created_at', 'created_at')->paginate(5);
+        $comments = Comment::orderBy('created_at', 'created_at')->paginate(8);
         $users = User::orderBy('id');
 
     	return view('welcome', compact('users','form', 'formComment', 'posts', 'comments'));
@@ -58,14 +56,17 @@ class Controller extends BaseController
 
     public function storeComment(Request $request){
         
-        
-        $comment = $this->validate(request(),[
+        $request->validate([
             'comment' => 'required',
             'post_id' => 'required|numeric',
             'user_id' => 'required|numeric'
         ]);
-        Comment::create($comment);
-        return redirect()->route('infiniteScroll');
+        $comment = new Comment;
+        $comment->comment = $request->comment;
+        $comment->post_id = $request->post_id;
+        $comment->user_id = $request->user_id;
+        $updated = $comment->save();
+        return redirect()->back();
     }
 
     public function home() {
