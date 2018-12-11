@@ -78,7 +78,8 @@ class Controller extends BaseController
         $comment->post_id = $request->post_id;
         $comment->user_id = $request->user_id;
         $updated = $comment->save();
-        return redirect()->back();
+        // return redirect()->back();
+        return redirect(url()->previous().'#'.$comment->post_id);
     }
 
     public function home() {

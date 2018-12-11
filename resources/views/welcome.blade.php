@@ -10,7 +10,7 @@
         </div>
         <div class="scroll">
 	 		@foreach ($posts as $post)
-
+				<a name="{{$post->id}}"></a>
 		        <div class="card mx-auto" style="width: 40em;margin-bottom: 1em;" >
 				  	<div id='meme{{$post->id}}'>
 				  		<div class="row">
