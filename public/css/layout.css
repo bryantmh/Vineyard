@@ -72,6 +72,7 @@ nav div h1 a:hover {
 .btn-secondary:hover {
   background-color: #301522;
   border-color: #301522;
+  color: white;
 }
 
 .homeGradient {

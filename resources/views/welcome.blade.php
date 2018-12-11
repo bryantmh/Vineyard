@@ -18,7 +18,7 @@
 						    <h2 class="card-title">{{ $post->description }}</h2>
 						    </div>
 						    <div class="col">
-						    	<button class='glyphicon glyphicon-pencil btn btn-secondary' style="    padding-top: .5em;padding-left: .5em;padding-right: .5em;padding-bottom: .1em;margin-top: 40px;margin-bottom: .75rem;" onclick="modifyPost({{$post->id}})"></button>
+						    	<button class='far fa-edit btn btn-secondary' style="    padding-top: .3em;padding-left: .5em;padding-right: .3em;padding-bottom: .3em;margin-bottom: .5em; margin-top: .5em;" onclick="modifyPost({{$post->id}})"></button>
 						    </div>
 						</div>
 					    <img class="card-img-bottom" src="./storage/memes/{{ $post->filepath }}" href="#{{$post->id}}">
