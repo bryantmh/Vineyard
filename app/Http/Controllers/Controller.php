@@ -31,8 +31,8 @@ class Controller extends BaseController
             'method' => 'POST',
             'url' => route('storeComment')
         ]);
-		$posts = Post::orderBy('created_at', 'desc')->paginate(8);
-        $comments = Comment::orderBy('created_at', 'created_at')->paginate(8);
+		$posts = Post::orderBy('created_at', 'desc')->paginate(100);
+        $comments = Comment::orderBy('created_at', 'created_at')->paginate(100);
         $users = User::orderBy('id');
 
     	return view('welcome', compact('users','form', 'formComment', 'posts', 'comments'));
