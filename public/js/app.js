@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    $('.hideCommentsBtn').text('Hide Comments');
-    $('.leaveAComment').text('Leave A Comment!');
 	$('.pagination').hide();
     $(function () {
         $('.scroll').jscroll({
@@ -11,6 +9,8 @@ $(document).ready(function() {
             contentSelector: 'div.scroll',
             callback: function() {
                 $('.pagination').remove();
+                $('.hideCommentsBtn').text('Hide Comments');
+                $('.leaveAComment').text('Leave A Comment!');
             }
         });
     });
