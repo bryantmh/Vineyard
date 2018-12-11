@@ -81,3 +81,8 @@ function submitCommentJS() {
 function closeComments(id = ''){
     $('#comment-form'+id).innerHTML = '';
 }
+
+function modifyPost(id){
+    $('#meme'+id).toggle(400);
+    $('#updateMeme'+id).toggle(400);
+}

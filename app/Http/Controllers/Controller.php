@@ -54,6 +54,18 @@ class Controller extends BaseController
         return redirect()->route('infiniteScroll');
     }
 
+    public function modifyPost(Request $request){
+        $post = Post::find($request->id);
+        $post->description = $request->description;
+        if($request->file('upload_Image') != ''){
+            $filepath = $request->file('upload_Image')->store('public/memes');
+            $post->filepath = preg_replace('/^public\/memes\//', '', $filepath);
+        }
+        $post->save();
+
+        return redirect()->route('infiniteScroll');   
+    }
+
     public function storeComment(Request $request){
         
         $request->validate([

@@ -12,10 +12,36 @@
 	 		@foreach ($posts as $post)
 
 		        <div class="card mx-auto" style="width: 40em;margin-bottom: 1em;" >
-				  	<div >
-					    <h2 class="card-title">{{ $post->description }}</h2>
+				  	<div id='meme{{$post->id}}'>
+				  		<div class="row">
+				  			<div class="col-10">
+						    <h2 class="card-title">{{ $post->description }}</h2>
+						    </div>
+						    <div class="col">
+						    	<button class='glyphicon glyphicon-pencil btn btn-secondary' style="    padding-top: .5em;padding-left: .5em;padding-right: .5em;padding-bottom: .1em;margin-top: 40px;margin-bottom: .75rem;" onclick="modifyPost({{$post->id}})"></button>
+						    </div>
+						</div>
 					    <img class="card-img-bottom" src="./storage/memes/{{ $post->filepath }}" href="#{{$post->id}}">
 				  	</div>
+				  	<div id='updateMeme{{$post->id}}' style="display: none;">
+				  		<div class="card mx-auto" style="width: 40em;">
+				  			<div class="card-body">
+						  		<h2 class="card-title">Edit the Post</h2> 
+						  		{{ Form::model($post, array('route' => array('modifyPost', $post->id))) }}
+						  		{{ Form::hidden('id') }}
+						  		<div class="form-group">
+						  		{{ Form::label('description', 'Description', array('class' => 'control-label'))}}
+						  		{{ Form::textarea('description',null, array('class' => 'form-control')) }}
+						  	</div>
+						  		<div class="form-group">
+						  		{{ Form::label('upload_image', 'Upload Image', array('class' => 'control-label'))}}
+						  		{{ Form::file('upload_image', array('class' => 'form-control')) }}
+						  		</div>
+						  		{{ Form::Submit('Save Changes')}}
+						  		{{ Form::close() }}
+						  	</div>
+						  </div>
+						</div>
 				  		<div class="card mx-auto" style="width: 30em;; padding: .5em;border-collapse: 'collapse'">
 				  			<div class="row">
 					  		<div class="col">
