@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    $('.hideCommentsBtn').text('Hide Comments');
+    $('.leaveAComment').text('Leave A Comment!');
 	$('.pagination').hide();
     $(function () {
         $('.scroll').jscroll({
