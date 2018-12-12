@@ -21,15 +21,16 @@
 						<div class="navbar-header">
 							<h1><i class="fab fa-pagelines"></i><a class="navbar-brand" href="/">Vineyard</a></h1>
 						</div>
-
-						<button class="btn btn-danger navbar-btn" id="feedbackBtn" href="" onclick="javascript:toggleFeedbackWindow(); return false;"style="font-size: 1.5em;">Post</button>
+						@if ($doit == true)
+							<button class="btn btn-danger navbar-btn" id="feedbackBtn" href="" onclick="javascript:toggleFeedbackWindow(); return false;"style="font-size: 1.5em;">Post</button>
+						@endif
 					</div>
 				</nav>
 				<span id="feedbackContainer" style="position: fixed;"></span>
 			</header>
 	 		
       		@yield('content')
-      		
+
     	</div>
     </body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

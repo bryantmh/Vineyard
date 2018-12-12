@@ -1,3 +1,5 @@
+{{$doit = true}}
+
 @extends('layout')
 
 @section('content')
