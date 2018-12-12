@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('.hideCommentsBtn').text('Hide Comments');
     $('.leaveAComment').text('Leave A Comment!');
-	$('.pagination').hide();
+    $('.pagination').hide();
     $(function () {
         $('.scroll').jscroll({
             autoTrigger: true,
@@ -16,11 +16,17 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".test").each(function() {
+        var id = $(this).val();
+        var form = $(this).prev()
+        form[0][2].value = id;
+    });
 });  
 
 
 function listviewfunc(id) {
-        
+
     $('#comments-list'+id).toggle(400, function () {
         if($('#listview'+id).text() == 'Hide Comments'){
             $('#listview'+id).text('Show Comments');
@@ -87,4 +93,33 @@ function closeComments(id = ''){
 function modifyPost(id){
     $('#meme'+id).toggle(400);
     $('#updateMeme'+id).toggle(400);
+}
+
+
+function toggleFeedbackWindow() {
+    var win = jQuery('#feedbackContainer');
+    if(win.is(':visible')){
+        closeFeedbackWindow();
+        $('#main-content').css({opacity: 1});
+    } 
+    else {
+        openFeedbackWindow();
+        $('#main-content').css({opacity: 0.5});
+    }
+}
+
+function openFeedbackWindow() {
+  var request = jQuery.ajax({
+   url: './postForm',
+});
+  request.done (function(msg) {
+     var fdbkObj = jQuery('#feedbackContainer');
+     fdbkObj.html(msg).show();
+     jQuery('#Name').val(jQuery('[slot="user-name"]').text());
+ });
+}
+
+function closeFeedbackWindow() {
+  jQuery('#feedbackContainer').hide().html('<div></div>');
+  $('#main-content').css({opacity: 1});
 }

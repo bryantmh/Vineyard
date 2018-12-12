@@ -21,3 +21,5 @@ Route::post('/upvote', 'Controller@upvote')->name('upvote');
 Route::get('/commentsForm', function(){
 	return view('comment');
 });
+
+Route::get('/postForm', 'Controller@postForm')->name('postForm');

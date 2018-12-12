@@ -22,11 +22,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function index(FormBuilder $formBuilder) {
-    	$form = $formBuilder->create(CreatePost::class, [
-		    'method' => 'POST',
-		    'url' => route('storePost')
-		]);
-
+    	
         $formComment = $formBuilder->create(CreateComment::class, [
             'method' => 'POST',
             'url' => route('storeComment')
@@ -35,7 +31,16 @@ class Controller extends BaseController
         $comments = Comment::orderBy('created_at', 'created_at')->paginate(100);
         $users = User::orderBy('id');
 
-    	return view('welcome', compact('users','form', 'formComment', 'posts', 'comments'));
+    	return view('welcome', compact('users', 'formComment', 'posts', 'comments'));
+    }
+
+    public function postForm(FormBuilder $formBuilder) {
+        $form = $formBuilder->create(CreatePost::class, [
+            'method' => 'POST',
+            'url' => route('storePost')
+        ]);
+
+        return view('postForm', compact('form'));
     }
 
     public function storePost(Request $request, FormBuilder $formBuilder) {
@@ -63,23 +68,20 @@ class Controller extends BaseController
         }
         $post->save();
 
-        return redirect()->route('infiniteScroll');   
+        return redirect(url()->previous().'#'.$request->id);
     }
 
-    public function storeComment(Request $request){
+    public function storeComment(FormBuilder $formBuilder) {
         
-        $request->validate([
-            'comment' => 'required',
-            'post_id' => 'required|numeric',
-            'user_id' => 'required|numeric'
-        ]);
-        $comment = new Comment;
-        $comment->comment = $request->comment;
-        $comment->post_id = $request->post_id;
-        $comment->user_id = $request->user_id;
-        $updated = $comment->save();
-        // return redirect()->back();
-        return redirect(url()->previous().'#'.$comment->post_id);
+        $form = $formBuilder->create(CreateComment::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+        $form->redirectIfNotValid();
+        $values = $form->getFieldValues(); 
+        Comment::create(['comment' => $values['comment'], 'post_id' => $values['post_id']]);
+        return redirect(url()->previous().'#'.$values['post_id']);
     }
 
     public function home() {
@@ -114,12 +116,13 @@ class CreateComment extends Form
         $this
             ->add('comment', 'textarea', [
                 'rules' => 'max:255',
-                'attr' => ['style' => 'height: 3em;']
+                'attr' => ['style' => 'height: 6em;',  "placeholder" => "Leave a comment!"],
+                'label' => false
             ])
             ->add('post_id', 'hidden')
             ->add('submit', 'submit', [
                 'label' => 'Post',
-                'attr' => ['class' => 'btn btn-secondary', 'style' => 'width: 2em;']
+                'attr' => ['class' => 'btn btn-danger']
             ]);
     }
 }
