@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.hideCommentsBtn').text('Hide Comments');
-    $('.leaveAComment').text('Leave A Comment!');
+    // $('.leaveAComment').text('Leave A Comment!');
     $('.pagination').hide();
     $(function () {
         $('.scroll').jscroll({
@@ -12,7 +12,7 @@ $(document).ready(function() {
             callback: function() {
                 $('.pagination').remove();
                 $('.hideCommentsBtn').text('Hide Comments');
-                $('.leaveAComment').text('Leave A Comment!');
+                // $('.leaveAComment').text('Leave A Comment!');
             }
         });
     });
@@ -93,6 +93,7 @@ function closeComments(id = ''){
 function modifyPost(id){
     $('#meme'+id).toggle(400);
     $('#updateMeme'+id).toggle(400);
+    $('#leaveComment'+id).toggle(400);
 }
 
 

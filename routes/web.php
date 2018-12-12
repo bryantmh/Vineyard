@@ -17,9 +17,9 @@ Route::post('/storePost', 'Controller@storePost')->name('storePost');
 Route::post('/storeComment', 'Controller@storeComment')->name('storeComment');
 Route::post('/modifyPost', 'Controller@modifyPost')->name('modifyPost');
 Route::post('/deleteComment', 'Controller@deleteComment')->name('deleteComment');
-Route::post('/upvote', 'Controller@upvote')->name('upvote'); 
-Route::get('/commentsForm', function(){
-	return view('comment');
-});
+// Route::post('/upvote', 'Controller@upvote')->name('upvote'); 
+// Route::get('/commentsForm', function(){
+// 	return view('comment');
+// });
 
 Route::get('/postForm', 'Controller@postForm')->name('postForm');

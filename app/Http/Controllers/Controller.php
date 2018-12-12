@@ -62,7 +62,7 @@ class Controller extends BaseController
     public function modifyPost(Request $request){
         $post = Post::find($request->id);
         $post->description = $request->description;
-        if($request->file('upload_Image') != ''){
+        if ($request->file('upload_Image') != ''){
             $filepath = $request->file('upload_Image')->store('public/memes');
             $post->filepath = preg_replace('/^public\/memes\//', '', $filepath);
         }
@@ -101,7 +101,7 @@ class CreatePost extends Form
             ])
             ->add('upload_Image', 'file', [
                 'rules' => 'required|max:2048|mimes:jpg,jpeg,png,gif',
-                'attr' => ["class" => '.form-control-file']
+                'attr' => ["class" => 'form-control-file']
             ])
             ->add('submit', 'submit', [
             	'label' => 'Post',

@@ -8,7 +8,7 @@
 		@foreach ($posts as $post)
 		<a name="{{$post->id}}"></a>
 		<div class="card mx-auto" style="width: 50em; margin-bottom: 1em; padding-left: 2em; padding-right: 2em;" >
-			<div id='meme{{$post->id}}' style=" padding-bottom: 1.5em;">
+			<div id='meme{{$post->id}}' style="padding-bottom: 1.5em;">
 				<div class="row">
 					<div class="col-10" style="padding-left: 0px;">
 						<h2 class="card-title">{{ $post->description }}</h2>
@@ -21,20 +21,20 @@
 			</div>
 			<div id='updateMeme{{$post->id}}' style="display: none;">
 				<h2 class="card-title">Edit the Post</h2> 
-				{{ Form::model($post, array('route' => array('modifyPost', $post->id))) }}
+				{{ Form::model($post, array('route' => array('modifyPost', $post->id), 'files' => true)) }}
 				{{ Form::hidden('id') }}
 				<div class="form-group">
 					{{ Form::label('description', 'Description', array('class' => 'control-label'))}}
 					{{ Form::textarea('description',null, array('class' => 'form-control')) }}
 				</div>
 				<div class="form-group">
-					{{ Form::label('upload_image', 'Upload Image', array('class' => 'control-label'))}}
-					{{ Form::file('upload_image', array('class' => 'form-control')) }}
+					{{ Form::label('upload_Image', 'Upload Image', array('class' => 'control-label'))}}
+					{{ Form::file('upload_Image', array('class' => 'form-control-file')) }}
 				</div>
-				{{ Form::Submit('Save Changes')}}
+				{{ Form::Submit('Save Changes', array('class' => 'btn btn-secondary'))}}
 				{{ Form::close() }}
 			</div>
-			<div>
+			<div id="leaveComment{{$post->id}}">
 				{!! form($formComment) !!}
 				<input type="hidden" value="{{$post->id}}" class="test">
 				<button type="button" class="btn hideCommentsBtn" id="listview{{$post->id}}" onclick="listviewfunc({{$post->id}})" value="Hide Comments" style="width: 12em; margin-bottom: 2em; margin-top: -3.55em; margin-left: 5em;">
