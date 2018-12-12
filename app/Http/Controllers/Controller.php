@@ -16,10 +16,13 @@ use App\User;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilderTrait;
+
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use FormBuilderTrait;
 
     public function index(FormBuilder $formBuilder) {
     	
@@ -71,12 +74,12 @@ class Controller extends BaseController
         return redirect(url()->previous().'#'.$request->id);
     }
 
-    public function storeComment(FormBuilder $formBuilder) {
+    public function storeComment(Request $request, FormBuilder $formBuilder) {
         
         $form = $formBuilder->create(CreateComment::class);
 
         if (!$form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
+            return redirect(url()->previous().'#'.$values['post_id']);
         }
         $form->redirectIfNotValid();
         $values = $form->getFieldValues(); 
@@ -115,7 +118,7 @@ class CreateComment extends Form
     public function buildForm(){
         $this
             ->add('comment', 'textarea', [
-                'rules' => 'max:255',
+                'rules' => 'required|max:255',
                 'attr' => ['style' => 'height: 6em;',  "placeholder" => "Leave a comment!"],
                 'label' => false
             ])
